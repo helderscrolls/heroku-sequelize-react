@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  api:
+    build: .
+    depends_on:
+      - api_db
+    ports:
+      - 8008:8007
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@api_db/postgres
+
+  api_db:
+    image: postgres:11.2-alpine
+    
