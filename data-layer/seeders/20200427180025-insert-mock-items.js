@@ -1,28 +1,32 @@
-'use strict';
+const SEED_MOCK_DATA = process.env.SEED_MOCK_DATA === 'true';
 
 const items = [
   {
-    id: 'TOTO-1234',
-    name: 'Toto',
+    id: 'FOO-1234',
+    name: 'Foo',
   },
   {
-    id: 'TATA-5678',
-    name: 'Tata',
+    id: 'BAR-5678',
+    name: 'Bar',
   },
 ];
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Items', items, {});
+    return SEED_MOCK_DATA
+      ? queryInterface.bulkInsert('Items', items, {})
+      : Promise.resolve();
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.bulkDelete(
-      'Items',
-      {
-        id: { [Sequelize.Op.in]: items.map((item) => item.id) },
-      },
-      {}
-    );
+    return SEED_MOCK_DATA
+      ? queryInterface.bulkDelete(
+          'Items',
+          {
+            id: { [Sequelize.Op.in]: items.map(item => item.id) },
+          },
+          {}
+        )
+      : Promise.resolve();
   },
 };
