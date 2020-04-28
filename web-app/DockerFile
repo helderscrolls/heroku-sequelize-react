@@ -1,3 +1,4 @@
+
 FROM node:10.3.0-alpine
 
 WORKDIR /app
@@ -7,4 +8,4 @@ RUN npm install
 
 COPY . ./
 
-CMD ["npm", "run", "migrate-and-start"]
+CMD ["npm", "run", "build"]
