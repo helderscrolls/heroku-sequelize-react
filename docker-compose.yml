@@ -13,6 +13,11 @@ services:
   api_db:
     image: postgres:11.2-alpine
 
+  hello:
+    build: ./hello
+    expose:
+      - 8008
+
   web-app:
     build: ./web-app
     volumes:
@@ -29,6 +34,7 @@ services:
       - 80:80
     depends_on:
       - api
+      - hello
       - web-app
 
 volumes:
